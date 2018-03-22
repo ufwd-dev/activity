@@ -14,7 +14,7 @@ service:
 }
 ```
 
-## GET /api/ufwd/service/activity?keyword=string&tag=string,startTime=string,closeTime=string
+## GET /api/ufwd/service/activity?keyword=string&tag=string&startTime=string&closeTime=string
 查看所有的活动
 
 ## GET /api/ufwd/service/activity/:activityId
@@ -40,6 +40,9 @@ service:
     tag: string
 }
 ```
+
+## DELETE /api/ufwd/service/activity/tag/:tagId
+删除给某个活动某个标签
 
 ## GET /api/ufwd/sevice/account/:accountId/activity
 查看某个用户所有的的签到信息
