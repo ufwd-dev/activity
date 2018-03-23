@@ -14,7 +14,7 @@ module.exports = function* isPublished(req, res, next) {
 	});
 
 	if (!activity) {
-		throwError('The activity is not existed', 404);
+		throwError('The activity is not existed or no authority', 404);
 	}
 
 	res.data(activity);

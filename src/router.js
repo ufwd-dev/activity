@@ -127,7 +127,7 @@ router.post('/api/ufwd/service/activity/:activityId/tag', $testBody({
 	},
 	additionalProperties: false,
 	required: ['tag']
-}), isAdminiSignedIn, getActivity, createActivityTag);
+}), isAdminiSignedIn, isPublished, createActivityTag);
 
 router.delete('/api/ufwd/service/activity/tag/:tagId', isAdminiSignedIn, deleteActivityTag);
 
