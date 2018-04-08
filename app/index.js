@@ -1,1 +1,1 @@
-console.log('activity');
+app.i18n.locale = 'en';
