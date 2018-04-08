@@ -2,21 +2,33 @@
 
 const {throwError} = require('error-standardize');
 
-module.exports = function* getOwnSignin(req, res, next) {
+module.exports = function* getOwnAttendance(req, res, next) {
 	const accountId = req.session.accountId;
 	const activityId = req.params.activityId;
-	const Signing = res.sequelize.model('ufwdSigning');
+	const Attendance = res.sequelize.model('ufwdAttendance');
+	const Activity = res.sequelize.model('ufwdActivity');
 	
-	const signing = yield Signing.findOne({
+	const activity = yield Activity.findOne({
+		where: {
+			id: activityId,
+			published: 1
+		}
+	});
+
+	const attendance = yield Attendance.findOne({
 		where: {
 			accountId, activityId
 		}
 	});
 
-	if (!signing) {
-		throwError('The signing is not existed', 404);
+	if (!activity) {
+		throwError('The activity is not existed', 404);
 	}
-	res.data(signing);
+
+	res.data({
+		activity,
+		attendance
+	});
 
 	next();
 };

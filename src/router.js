@@ -19,11 +19,11 @@ const {
 	deleteActivity,
 	createActivityTag,
 	deleteActivityTag,
-	getAccountSigninList,
-	getActivitySigninList,
+	getAccountAttendanceList,
+	getActivityAttendanceList,
 	getPublishedActivityList,
-	createSignin,
-	getOwnSignin
+	createAttendance,
+	getOwnAttendance
 } = require('express-handler-loader')('ufwd_activity');
 
 const router = module.exports = require('express').Router();
@@ -34,30 +34,30 @@ router.post('/api/ufwd/service/activity', $testBody({
 			type: 'string',
 			minLength: 4
 		},
-		content: {
+		description: {
 			type: 'string'
 		},
-		place: {
+		location: {
 			type: 'string',
 			minLength: 4
 		},
 		abstract: {
 			type: 'string'
 		},
-		startTime: {
+		start: {
 			type: 'string',
-			pattern: '(^(19|20)[0-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) ((1|0)[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$)'
+			format: 'date-time'
 		},
-		closeTime: {
+		end: {
 			type: 'string',
-			pattern: '(^(19|20)[0-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) ((1|0)[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$)'
+			format: 'date-time'
 		},
 		published: {
 			type: 'string',
-			pattern: '(^0$|^1$)'
+			pattern: '(^true$|^false$)'
 		}
 	},
-	required: ['title', 'content', 'place', 'abstract', 'startTime', 'closeTime', 'published'],
+	required: ['title', 'description', 'location', 'abstract', 'start', 'end', 'published'],
 	additionalProperties: false
 }), isAdminiSignedIn, createActivity);
 
@@ -71,13 +71,15 @@ router.get('/api/ufwd/service/activity', $testQuery({
 		},
 		published: {
 			type: 'string',
-			pattern: '(^0$|^1$)'
+			pattern: '(^true$|^false$)'
 		},
-		startTime: {
-			type: 'string'
+		start: {
+			type: 'string',
+			format: 'date-time'
 		},
-		closeTime: {
-			type: 'string'
+		end: {
+			type: 'string',
+			format: 'date-time'
 		}
 	},
 	additionalProperties: false
@@ -91,27 +93,27 @@ router.put('/api/ufwd/service/activity/:activityId', $testBody({
 			type: 'string',
 			minLength: 4
 		},
-		content: {
+		description: {
 			type: 'string'
 		},
-		place: {
+		location: {
 			type: 'string',
 			minLength: 4
 		},
 		abstract: {
 			type: 'string'
 		},
-		startTime: {
+		start: {
 			type: 'string',
-			pattern: '(^(19|20)[0-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) ((1|0)[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$)'
+			format: 'date-time'
 		},
-		closeTime: {
+		end: {
 			type: 'string',
-			pattern: '(^(19|20)[0-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) ((1|0)[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$)'
+			format: 'date-time'
 		},
 		published: {
 			type: 'string',
-			pattern: '(^0$|^1$)'
+			pattern: '(^true$|^false$)'
 		}
 	},
 	additionalProperties: false
@@ -131,9 +133,9 @@ router.post('/api/ufwd/service/activity/:activityId/tag', $testBody({
 
 router.delete('/api/ufwd/service/activity/tag/:tagId', isAdminiSignedIn, deleteActivityTag);
 
-router.get('/api/ufwd/sevice/activity/:activityId/account', isAdminiSignedIn, getActivitySigninList);
+router.get('/api/ufwd/sevice/activity/:activityId/attendance', isAdminiSignedIn, getActivityAttendanceList);
 
-router.get('/api/ufwd/sevice/account/:accountId/activity', isAdminiSignedIn, getAccountSigninList);
+router.get('/api/ufwd/sevice/account/:accountId/activity', isAdminiSignedIn, getAccountAttendanceList);
 
 router.get('/api/ufwd/app/activity', $testQuery({
 	properties: {
@@ -143,15 +145,26 @@ router.get('/api/ufwd/app/activity', $testQuery({
 		tag: {
 			type: 'string'
 		},
-		startTime: {
-			type: 'string'
+		start: {
+			type: 'string',
+			format: 'date-time'
 		},
-		closeTime: {
-			type: 'string'
+		end: {
+			type: 'string',
+			format: 'date-time'
 		}
-	}
+	},
+	additionalProperties: false
 }), isAccountSignedIn, getPublishedActivityList);
 
-router.post('/api/ufwd/app/activity/:activityId/signing', isAccountSignedIn, createSignin);
+router.post('/api/ufwd/app/attendance', $testBody({
+	properties: {
+		token: {
+			type: 'string'
+		}
+	},
+	additionalProperties: false,
+	required: ['token']
+}), isAccountSignedIn, createAttendance);
 
-router.get('/api/ufwd/app/activity/:activityId/signing', isAccountSignedIn, getOwnSignin);
+router.get('/api/ufwd/app/activity/:activityId', isAccountSignedIn, getOwnAttendance);

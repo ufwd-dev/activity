@@ -4,13 +4,15 @@ const {throwError} = require('error-standardize');
 
 module.exports = function* createActivity(req, res, next) {
 	const Activity = res.sequelize.model('ufwdActivity');
-	const {startTime, closeTime} = req.body;
+	const {start, end} = req.body;
+	const date = new Date();
 
-	const start= Date.parse(startTime);
-	const close = Date.parse(closeTime);
+	if (Date.parse(start) < Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes())) {
+		throwError('The activity start is illegal.', 403);
+	}
 
-	if (start >= close) {
-		throwError('The activity startTime is later than closeTime.', 403);
+	if (Date.parse(start) >= Date.parse(end)) {
+		throwError('The activity start is later than end.', 403);
 	}
 
 	const activity = yield Activity.create(req.body);

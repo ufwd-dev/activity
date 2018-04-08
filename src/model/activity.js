@@ -9,35 +9,46 @@ const Activity = sequelize.define('ufwdActivity', {
 		type: Sequelize.STRING,
 		allowNull: false
 	},
-	content: {
+	description: {
 		type: Sequelize.TEXT,
 		allowNull: false
 	},
-	place: {
+	location: {
 		type: Sequelize.STRING,
 		allowNull: false
 	},
 	abstract: {
 		type: Sequelize.STRING
 	},
-	startTime: {
+	start: {
 		type: Sequelize.DATE,
 		allowNull: false
 	},
-	closeTime: {
+	end: {
 		type: Sequelize.DATE,
 		allowNull: false
 	},
 	published: {
 		type: Sequelize.TINYINT,
 		defaultValue: 0,
-		allowNull: false
+		set(published) {
+			published === 'true' ? this.setDataValue('published', 1) : this.setDataValue('published', 0);
+		},
+		get() {
+			const published = this.getDataValue('published');
+
+			return published === 1 ? true : false;
+		}
+	},
+	token: {
+		type: Sequelize.UUID,
+		defaultValue: Sequelize.UUIDV1
 	}
 }, {
 	paranoid: true
 });
 
-const Signing = sequelize.define('ufwdSigning', {
+const Attendance = sequelize.define('ufwdAttendance', {
 	time: {
 		type: Sequelize.DATE,
 		allowNull: false
@@ -53,4 +64,4 @@ const ActivityTag = sequelize.define('ufwdActivityTag', {
 	}
 });
 
-module.exports = { Activity, Signing, ActivityTag };
+module.exports = { Activity, Attendance, ActivityTag };

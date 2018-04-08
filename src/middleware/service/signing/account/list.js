@@ -2,8 +2,8 @@
 
 const {throwError} = require('error-standardize');
 
-module.exports = function* getAccountSigninList(req, res, next) {
-	const Signing = res.sequelize.model('ufwdSigning');
+module.exports = function* getAccountAttendanceList(req, res, next) {
+	const Attendance = res.sequelize.model('ufwdAttendance');
 	const Account = res.sequelize.model('account');
 	const accountId = req.params.accountId;
 
@@ -17,17 +17,17 @@ module.exports = function* getAccountSigninList(req, res, next) {
 		throwError('The account is not existed', 404);
 	}
 
-	const signingList = yield Signing.findAll({
+	const attendanceList = yield Attendance.findAll({
 		where: {
 			accountId
 		}
 	});
 
-	if (signingList.length === 0) {
+	if (attendanceList.length === 0) {
 		throwError('The signing is not existed', 404);
 	}
 
-	res.data(signingList);
+	res.data(attendanceList);
 
 	next();
 };

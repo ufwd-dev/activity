@@ -1,24 +1,22 @@
 'use strict';
 
-// require('./insert');
-
 const lemonitor = require('lemonitor-service');
 const sequelize = lemonitor.sequelize;
 
 const UfwdAccount = sequelize.model('ufwdAccount');
-const { Activity, Signing, ActivityTag } = require('./activity');
+const { Activity, Attendance, ActivityTag } = require('./activity');
 
-Activity.hasMany(Signing, {
+Activity.hasMany(Attendance, {
 	foreignKey: 'activityId'
 });
-Signing.belongsTo(Activity, {
+Attendance.belongsTo(Activity, {
 	foreignKey: 'activityId'
 });
 
-UfwdAccount.hasMany(Signing, {
+UfwdAccount.hasMany(Attendance, {
 	foreignKey: 'accountId'
 });
-Signing.belongsTo(UfwdAccount, {
+Attendance.belongsTo(UfwdAccount, {
 	foreignKey: 'accountId'
 });
 

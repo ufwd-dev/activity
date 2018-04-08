@@ -6,7 +6,7 @@ const Sequelize = require('sequelize');
 module.exports = function* getPublishedActivityList(req, res, next) {
 	const Activity = res.sequelize.model('ufwdActivity');
 	const ActivityTag = res.sequelize.model('ufwdActivityTag');
-	const {keyword, startTime, closeTime, tag} = req. query;
+	const {keyword, start, end, tag} = req. query;
 	const query = {
 		where: {
 			published: 1
@@ -16,12 +16,12 @@ module.exports = function* getPublishedActivityList(req, res, next) {
 		}]
 	};
 
-	keyword ? (query.where.title = {[Sequelize.Op.like]: `%${keyword}%`}, query.where.content = {[Sequelize.Op.like]: `%${keyword}%`},
-		query.where.place = {[Sequelize.Op.like]: `%${keyword}%`}, query.where.abstract = {[Sequelize.Op.like]: `%${keyword}%`}) : undefined;
+	keyword ? (query.where.title = {[Sequelize.Op.like]: `%${keyword}%`}, query.where.description = {[Sequelize.Op.like]: `%${keyword}%`},
+		query.where.location = {[Sequelize.Op.like]: `%${keyword}%`}, query.where.abstract = {[Sequelize.Op.like]: `%${keyword}%`}) : undefined;
 
-	startTime ? (query.where.startTime = {[Sequelize.Op.gt]: new Date(startTime)}) : undefined;
+	start ? (query.where.start = {[Sequelize.Op.gt]: new Date(start)}) : undefined;
 
-	closeTime ? (query.where.closeTime = {[Sequelize.Op.gt]: new Date(closeTime)}) : undefined;
+	end ? (query.where.end = {[Sequelize.Op.gt]: new Date(end)}) : undefined;
 	
 
 	tag ? (query.include[0].where = {}, query.include[0].where.tag = {[Sequelize.Op.like]: `%${tag}%`}) :undefined;
