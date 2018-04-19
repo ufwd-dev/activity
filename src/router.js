@@ -53,8 +53,7 @@ router.post('/api/ufwd/service/activity', $testBody({
 			format: 'date-time'
 		},
 		published: {
-			type: 'string',
-			pattern: '(^true$|^false$)'
+			type: 'boolean'
 		}
 	},
 	required: ['title', 'description', 'location', 'abstract', 'start', 'end', 'published'],
@@ -112,8 +111,7 @@ router.put('/api/ufwd/service/activity/:activityId', $testBody({
 			format: 'date-time'
 		},
 		published: {
-			type: 'string',
-			pattern: '(^true$|^false$)'
+			type: 'boolean'
 		}
 	},
 	additionalProperties: false

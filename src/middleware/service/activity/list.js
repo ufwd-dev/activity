@@ -17,7 +17,7 @@ module.exports = function* getActivityList(req, res, next) {
 	keyword ? (query.where.title = {[Sequelize.Op.like]: `%${keyword}%`}, query.where.description = {[Sequelize.Op.like]: `%${keyword}%`},
 		query.where.location = {[Sequelize.Op.like]: `%${keyword}%`}, query.where.abstract = {[Sequelize.Op.like]: `%${keyword}%`}) : undefined;
 
-	published ? (query.where.published = (published === 'true' ? 1 : 0)) : undefined;
+	published ? (query.where.published = (published === 'true' ? true : false)) : undefined;
 
 	start ? (query.where.start = {[Sequelize.Op.gt]: new Date(start)}) : undefined;
 

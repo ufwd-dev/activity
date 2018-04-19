@@ -9,7 +9,7 @@ module.exports = function* getPublishedActivityList(req, res, next) {
 	const {keyword, start, end, tag} = req. query;
 	const query = {
 		where: {
-			published: 1
+			published: true
 		},
 		include: [{
 			model: ActivityTag 

@@ -13,7 +13,7 @@ module.exports = function* createAttendance(req, res, next) {
 	const activity = yield Activity.findOne({
 		where: {
 			token,
-			published: 1
+			published: true
 		}
 	});
 

@@ -9,7 +9,7 @@ module.exports = function* isPublished(req, res, next) {
 	const activity = yield Activity.findOne({
 		where: {
 			id: activityId,
-			published: 0
+			published: true
 		}
 	});
 

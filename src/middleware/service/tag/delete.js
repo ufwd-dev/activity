@@ -14,7 +14,7 @@ module.exports = function* deleteActivityTag(req, res, next) {
 		include: [{
 			model: Activity,
 			where: {
-				published: 0
+				published: true
 			}
 		}]
 	});

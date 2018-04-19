@@ -11,7 +11,7 @@ module.exports = function* getOwnAttendance(req, res, next) {
 	const activity = yield Activity.findOne({
 		where: {
 			id: activityId,
-			published: 1
+			published: true
 		}
 	});
 
