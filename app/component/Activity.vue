@@ -10,13 +10,12 @@
 		</ol>
 	</nav>
 
-	<div class="row">
-		<div class="col-1">
+	<div class="clearfix">
+		<div class="float-left">
 			<router-link tag="a"
-				to="activity/new"
-				class="btn btn-primary">+ New</router-link>
+				to="/ufwd/activity/add-activivty"				class="btn btn-primary">+ New</router-link>
 		</div>
-		<div class="col-7">
+		<div class="float-right">
 			<div class="input-group">
 				<input type="text" class="form-control">
 				<div class="input-group-append">
@@ -52,12 +51,13 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
 	name: 'activity',
 	methods: {
 		getActivityById(id) {
-			this.$router.push(`activity/new`);
+			this.$router.push(`activity/1/detail`);
 		}
-	}
 }
 </script>

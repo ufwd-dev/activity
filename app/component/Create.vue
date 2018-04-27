@@ -7,7 +7,7 @@
 				<router-link tag="a" to="/">Home</router-link>
 			</li>
 			<li class="breadcrumb-item">
-				<router-link tag="a" to="/activity">Activity</router-link>
+				<router-link tag="a" to="/ufwd/activity">Activity</router-link>
 			</li>
 			<li class="breadcrumb-item active">Add activity</li>
 		</ol>
@@ -57,12 +57,6 @@
 					v-model="end">
 			</div>
 		</div>
-		<div class="form-group row">
-			<label for="" class="col-sm-2 col-form-label">QR url</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control">
-			</div>
-		</div>
 		<div class="form-group">
 			<button type="button"
 				class="btn btn-primary btn-lg"
@@ -73,7 +67,6 @@
 </template>
 
 <script>
-import Qrcanvas from 'qrcanvas-vue';
 import axios from 'axios';
 
 export default {

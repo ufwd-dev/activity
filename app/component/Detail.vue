@@ -65,6 +65,7 @@
 <script>
 export default {
 	name: 'activity-detail',
+	components: { Qrcanvas },
 	computed: {
 		activityId() {
 			return this.$route.params.id;
