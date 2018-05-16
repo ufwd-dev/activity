@@ -18,6 +18,7 @@
   "homepage": "https://github.com/ufwd-dev/activity#readme",
   "dependencies": {
     "qrcanvas-vue": "^1.1.0",
+    "lemonitor-application": "git+https://github.com/lemonce/lemonitor-application.git#element-ui",
     "ufwd-system": "git+https://github.com/ufwd-dev/system.git"
   }
 }

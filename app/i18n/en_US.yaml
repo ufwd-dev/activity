@@ -1,0 +1,6 @@
+ufwdActivity:
+  menu:
+    activity: 'Activity'
+
+  activity:
+    activities: 'List'

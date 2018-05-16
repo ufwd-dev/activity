@@ -1,69 +1,60 @@
 <template>
 
-<div>
-	<nav>
-		<ol class="breadcrumb mb-4">
-			<li class="breadcrumb-item">
-				<router-link tag="a" to="/">Home</router-link>
-			</li>
-			<li class="breadcrumb-item">
-				<router-link tag="a" to="/ufwd/activity">Activity</router-link>
-			</li>
-			<li class="breadcrumb-item active">Add activity</li>
-		</ol>
-	</nav>
-
-	<h3>Add Activity</h3>
-	<hr>
-
-	<div class="container">
-		<div class="form-group row">
-			<label for="" class="col-sm-2 col-form-label">Title</label>
-			<div class="col-sm-10">
-				<input type="text"
-					class="form-control"
-					v-model="title">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="" class="col-sm-2 col-form-label">Description</label>
-			<div class="col-sm-10">
-				<input type="text"
-					class="form-control"
-					v-model="description">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="" class="col-sm-2 col-form-label">Location</label>
-			<div class="col-sm-10">
-				<input type="text"
-					class="form-control"
-					v-model="location">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="" class="col-sm-2 col-form-label">Start</label>
-			<div class="col-sm-10">
-				<input type="date"
-					class="form-control"
-					v-model="start">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="" class="col-sm-2 col-form-label">End</label>
-			<div class="col-sm-10">
-				<input type="date"
-					class="form-control"
-					v-model="end">
-			</div>
-		</div>
-		<div class="form-group">
-			<button type="button"
-				class="btn btn-primary btn-lg"
-				@click="createActivity()">Create</button>
-		</div>
+<el-card class="box-card" shadow="never">
+	<div slot="header">
+		<span>创建活动</span>
 	</div>
-</div>
+
+	<el-form :model="activityForm"
+		label-width="50px"
+		label-position="left">
+		<el-form-item label="名称" required>
+			<el-input v-model="activityForm.title"></el-input>
+		</el-form-item>
+
+		<el-form-item label="地点" required>
+			<el-input v-model="activityForm.location"></el-input>
+		</el-form-item>
+
+		<el-form-item label="开始" required>
+			<el-date-picker
+				type="datetime"
+				placeholder="活动开始日期和时间"
+				v-model="activityForm.start"></el-date-picker>
+		</el-form-item>
+
+		<el-form-item label="结束" required>
+			<el-date-picker
+				type="datetime"
+				placeholder="活动结束日期和时间"
+				v-model="activityForm.end"></el-date-picker>
+		</el-form-item>
+
+		<el-form-item label="发布" required>
+			<el-switch v-model="activityForm.published"></el-switch>
+		</el-form-item>
+
+		<el-form-item label="摘要" required>
+			<el-input
+				type="textarea"
+				rows="3"
+				v-model="activityForm.abstract"></el-input>
+		</el-form-item>
+
+		<el-form-item label="描述" required>
+			<el-input
+				type="textarea"
+				rows="5"
+				v-model="activityForm.description"></el-input>
+		</el-form-item>
+
+		<el-form-item>
+			<el-button
+				type="primary"
+				@click="createActivity()">创建</el-button>
+		</el-form-item>
+	</el-form>
+</el-card>
 </template>
 
 <script>
@@ -71,25 +62,22 @@ import axios from 'axios';
 
 export default {
 	name: 'add-activity',
+	props: ['getActivityList'],
 	data() {
 		return {
-			title: '',
-			description: '',
-			location: '',
-			start: new Date(),
-			end: new Date(),
+			activityForm: {
+
+			}
 		}
 	},
 	methods: {
 		createActivity() {
-			return axios.post(`/api/ufwd/service/activity/`, {
-				title: this.title,
-				description: this.description,
-				location: this.location,
-				start: this.start,
-				end: this.end,
-				published: false
-			})
+			return axios.post(`/api/ufwd/service/activity/`, this.activityForm)
+				.then(res => {
+					console.log('111');
+
+					this.getActivityList();
+				})
 		}
 
 	}

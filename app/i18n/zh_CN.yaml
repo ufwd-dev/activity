@@ -1,0 +1,6 @@
+ufwdActivity:
+  menu:
+    activity: '活动'
+
+  activity:
+    activities: '列表'
