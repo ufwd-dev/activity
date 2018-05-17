@@ -66,7 +66,7 @@ export default {
 	data() {
 		return {
 			activityForm: {
-
+				published: false
 			}
 		}
 	},
@@ -74,7 +74,7 @@ export default {
 		createActivity() {
 			return axios.post(`/api/ufwd/service/activity/`, this.activityForm)
 				.then(res => {
-					console.log('111');
+					// console.log('111');
 
 					this.getActivityList();
 				})

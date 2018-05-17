@@ -103,7 +103,9 @@ export default {
 	},
 	data() {
 		return {
-			activity: {},
+			activity: {
+				published: null
+			},
 			isUnpublished: null
 		}
 	},
@@ -111,7 +113,7 @@ export default {
 		getActivity() {
 			return axios.get(`/api/ufwd/service/activity/${this.activityId}`)
 				.then(res => {
-					console.log(res.data.data)
+					// console.log(res.data.data)
 
 
 					if (!res.data.data.published) {
@@ -129,8 +131,7 @@ export default {
 				abstract: this.activity.abstract,
 				description: this.activity.description,
 				published: this.activity.published
-			})
-				.then(() => {
+			}).then(() => {
 					this.$notify({
 						title: 'success',
 						message: '',

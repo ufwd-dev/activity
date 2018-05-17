@@ -48,7 +48,7 @@ export default {
 		getActivityList() {
 			return axios.get(`/api/ufwd/service/activity`)
 				.then(res => {
-					console.log(res.data.data);
+					// console.log(res.data.data);
 					const activityData = res.data.data;
 
 					activityData.forEach(activity => {

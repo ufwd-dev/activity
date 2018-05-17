@@ -7,7 +7,7 @@
 		:checkbox-filter-def="checkboxFilterDef">
 		<el-table-column
 			v-for="column in activityColumns"
-			:key="column.lable"
+			:key="column.label"
 			align="center"
 			:label="column.label"
 			:prop="column.prop"
@@ -63,6 +63,7 @@ export default {
 				{
 					label: '创建时间',
 					prop: 'created_at',
+					sortable: 'custom',
 					width: '180'
 				}
 			],
@@ -78,12 +79,16 @@ export default {
 			},
 			checkboxFilterDef: {
 				colProps: {
-					span: 4
+					span: 8
 				},
 				def: [
 					{
 						'code': '已发布',
-						'name': '发布状态'
+						'name': '已发布'
+					},
+					{
+						'code': '未发布',
+						'name': '未发布'
 					}
 				],
 				filterFunction(el, filter) {
