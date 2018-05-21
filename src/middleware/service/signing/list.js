@@ -23,10 +23,6 @@ module.exports = function* getActivityAttendanceList(req, res, next) {
 		}
 	});
 
-	if (attendanceList.length === 0) {
-		throwError('The signing is not existed', 404);
-	}
-
 	res.data(attendanceList);
 
 	next();

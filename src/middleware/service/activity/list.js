@@ -27,10 +27,6 @@ module.exports = function* getActivityList(req, res, next) {
 
 	const activityList = yield Activity.findAll(query);
 
-	if (activityList.length === 0) {
-		throwError('The activity is not existed.', 404);
-	}
-
 	res.data(activityList);
 
 	next();
